@@ -1,23 +1,18 @@
-const { Console } = require('node:console');
 const readline = require('node:readline');
 
+// Define ability to get console inputs
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
   });
-  
-// rl.question('What do you think of Node.js? ', (answer) => {
-//     // TODO: Log the answer in a database
-//     console.log(`Thank you for your valuable feedback: ${answer}`);
-  
-//     rl.close();
-//   });
 
+// Global Variables
 secretNumber = 29;
 totalGuesses = 5;
 maxGuess = 100;
 minGuess = 0;
 
+// Check whether num is equal to secret number
 const checkGuess = (num) => {
     if (num > secretNumber) {
         console.log("Too high!");
@@ -31,6 +26,9 @@ const checkGuess = (num) => {
     }
 }
 
+// Ask the player what their guess is, 
+// and handle the result using checkGuess,
+// and stop playing when guesses run out
 const askGuess = () => {
     let result;
 
@@ -53,10 +51,12 @@ const askGuess = () => {
 
 }
 
+// Generate random value between two values
 const randomInRange = (min, max) => {
     return Math.floor((max - min) * Math.random()) + min;
 }
 
+// Limit totalGuesses based on the range of secretNumber
 const dynamicLimit = () => {
     let tempTotal = 2;
     totalGuesses = 0;
@@ -66,6 +66,9 @@ const dynamicLimit = () => {
     }
 }
 
+// Ask the player for range to play within,
+// and generate totalGuesses using dynamicLimit,
+// and generate secretNumber using randomInRange
 const askRange = () =>{
     rl.question('Enter a max number: ', (answer1) =>{
         maxGuess = +answer1;
@@ -81,4 +84,5 @@ const askRange = () =>{
     })
 }
 
+// Start the game loop
 askRange()
