@@ -1,3 +1,4 @@
+const { Console } = require('node:console');
 const readline = require('node:readline');
 
 const rl = readline.createInterface({
@@ -51,8 +52,18 @@ const askGuess = () => {
     });
 
 }
+
 const randomInRange = (min, max) => {
     return Math.floor((max - min) * Math.random()) + min;
+}
+
+const dynamicLimit = () => {
+    let tempTotal = 2;
+    totalGuesses = 0;
+    while (tempTotal < maxGuess - minGuess)  {
+        totalGuesses++;
+        tempTotal *= 2;
+    }
 }
 
 const askRange = () =>{
@@ -60,6 +71,10 @@ const askRange = () =>{
         maxGuess = +answer1;
         rl.question('Enter a min number: ', (answer2) =>{
             minGuess = +answer2;
+
+            dynamicLimit();
+            console.log(`You have ${totalGuesses} guesses.`)
+
             secretNumber = randomInRange(minGuess, maxGuess);
             askGuess();
             })
