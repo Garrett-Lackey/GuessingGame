@@ -13,7 +13,8 @@ const rl = readline.createInterface({
 //   });
 
 secretNumber = 29;
-
+maxGuess = 100;
+minGuess = 0;
 const checkGuess = (num) => {
     if (num > secretNumber) {
         console.log("Too high!");
@@ -42,5 +43,23 @@ const askGuess = () => {
     });
 
 }
+const randomInRange = (min, max) => {
+    return Math.floor((max - min) * Math.random()) + min;
+}
 
-askGuess();
+const askRange = () =>{
+    rl.question('Enter a max number: ', (answer1) =>{
+        maxGuess = +answer1
+        rl.question('Enter a min number: ', (answer2) =>{
+            minGuess = +answer2
+            secretNumber = randomInRange(minGuess, maxGuess) 
+            console.log(secretNumber);
+            askGuess();
+    
+            })
+        
+    })
+   
+}
+
+askRange()
