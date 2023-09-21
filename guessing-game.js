@@ -13,8 +13,10 @@ const rl = readline.createInterface({
 //   });
 
 secretNumber = 29;
+totalGuesses = 5;
 maxGuess = 100;
 minGuess = 0;
+
 const checkGuess = (num) => {
     if (num > secretNumber) {
         console.log("Too high!");
@@ -33,12 +35,18 @@ const askGuess = () => {
 
     rl.question("Enter a guess: ", (answer) => {
         result = checkGuess(answer);
+        totalGuesses--;
 
         if (result) {
             console.log("You Win!");
             rl.close();
-        } else {
+        } else if (totalGuesses) {
+            console.log(`${totalGuesses} guesses left!`)
             askGuess();
+        } else if (!totalGuesses) {
+            console.log("TOO MANY GUESSES!!!");
+            console.log("You lose!");
+            rl.close();
         }
     });
 
@@ -49,17 +57,13 @@ const randomInRange = (min, max) => {
 
 const askRange = () =>{
     rl.question('Enter a max number: ', (answer1) =>{
-        maxGuess = +answer1
+        maxGuess = +answer1;
         rl.question('Enter a min number: ', (answer2) =>{
-            minGuess = +answer2
-            secretNumber = randomInRange(minGuess, maxGuess) 
-            console.log(secretNumber);
+            minGuess = +answer2;
+            secretNumber = randomInRange(minGuess, maxGuess);
             askGuess();
-    
             })
-        
     })
-   
 }
 
 askRange()
